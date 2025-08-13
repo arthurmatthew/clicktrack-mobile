@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android", "web"],
+  "apple": {
+    "modules": ["ClicktrackEngineModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.clicktrackengine.ClicktrackEngineModule"]
+  }
+}
