@@ -9,18 +9,14 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    SplashScreen.preventAutoHideAsync();
+  }, []);
+
+  useEffect(() => {
     if (loaded) {
-      SplashScreen.hide();
+      SplashScreen.hideAsync();
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <View>
-      <Slot />
-    </View>
-  );
+  return <View style={{ flex: 1 }}>{loaded && <Slot />}</View>;
 }

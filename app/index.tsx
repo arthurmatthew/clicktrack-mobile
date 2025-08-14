@@ -1,16 +1,9 @@
-import { useRouter } from "expo-router";
-import { useEffect } from "react";
+import { Redirect, useRootNavigationState } from "expo-router";
 
 export default function Index() {
-  const router = useRouter();
+  const rootNavigationState = useRootNavigationState();
 
-  const isLoggedIn = false; // simulate
+  if (!rootNavigationState.key) return null;
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.replace("/(main)/clicktracks");
-    } else {
-      router.replace("/(auth)/login");
-    }
-  }, [isLoggedIn]);
+  return <Redirect href="/(auth)/login" />;
 }
