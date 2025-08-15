@@ -4,8 +4,8 @@ export default function MainLayout() {
   return (
     <Tabs>
       <Tabs.Screen
-        name="clicktracks/index"
-        options={{ title: "Clicktracks" }}
+        name="index"
+        options={{ title: "Clicktracks", headerShown: false }}
       />
       <Tabs.Screen name="profile" options={{ title: "Profile" }} />
     </Tabs>

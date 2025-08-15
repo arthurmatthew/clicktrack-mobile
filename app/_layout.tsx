@@ -1,22 +1,30 @@
-import { useFonts } from "expo-font";
-import { Slot, SplashScreen } from "expo-router";
-import { useEffect } from "react";
-import { View } from "react-native";
+import { SessionProvider, useSession } from "@/components/SessionProvider";
+import { SplashScreenController } from "@/components/SplashScreenController";
+import { Stack } from "expo-router";
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
-    InterTight: require("../assets/fonts/InterTight-Regular.ttf"),
-  });
-
-  useEffect(() => {
-    SplashScreen.preventAutoHideAsync();
-  }, []);
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  return <View style={{ flex: 1 }}>{loaded && <Slot />}</View>;
+  return (
+    <SessionProvider>
+      <RootNavigator />
+      <SplashScreenController />
+    </SessionProvider>
+  );
 }
+
+const RootNavigator = () => {
+  const { user } = useSession();
+
+  return (
+    <Stack>
+      <Stack.Protected guard={!!user}>
+        <Stack.Screen name="(main)" options={{ headerShown: false }} />
+      </Stack.Protected>
+
+      <Stack.Protected guard={!user}>
+        <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+        <Stack.Screen name="register" options={{ headerShown: false }} />
+        <Stack.Screen name="forgot-password" />
+      </Stack.Protected>
+    </Stack>
+  );
+};
